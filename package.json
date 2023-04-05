@@ -20,6 +20,8 @@
   },
   "homepage": "https://gitlab.com/antonioSalinas/dss_2023#readme",
   "dependencies": {
+    "co": "^4.6.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2"
   }
 }
