@@ -1,3 +1,6 @@
+var sanitizer = require('sanitizer');
+
+
 const validaOpenai = async (expresion)=>{
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
@@ -26,11 +29,17 @@ const validaInput = (expresion) =>{
     return "false"
 
 }
-const validaSanirizer = (expresion) => {
-    
+const validaSanitizer = (expresion) => {
+    expresion = sanitizer.escape(expresion); 
+    // expresion = sanitizer.normalizeRCData(expresion); 
+    // expresion = sanitizer.sanitize(expresion); 
+    // expresion = sanitizer.unescapeEntities(expresion); //no sirve
+    console.log(expresion)
+    return(expresion)
 }
 
 module.exports ={
     validaOpenai,
     validaInput,
+    validaSanitizer,
 }
