@@ -1,33 +1,13 @@
 const express = require('express')
-const utils = require("../resources/utils")
 const router = express.Router()
+const main = require('../controllers/MainController')
 
-router.get('/test',(request,response)=>{
-    response.send('testeando')
-})
-
-router.post('/postData',(request,response) =>{
-    console.log(request.body)
-    response.send(`Los datos enviados fueron ${request.body.email} ${request.body.password}`)
-})
-
-router.get('/index',(request,response) =>{
-    response.render('index')
-})
-router.post('/enviarDatos',async (request,response) =>{
-    //const respuesta = await utils.validaOpenai(request.body.buscar)
-    // respuesta = await utils.validaInput(request.body.buscar);
-    // console.log(respuesta)
-    // if(respuesta == "true"){
-    //     response.render('recibe_datos',{locals: {busqueda : "Busqueda invalida"}})
-    // }else{
-    //     response.render('recibe_datos',{locals: {busqueda : request.body.buscar}})
-    // }  
-    response.render('recibe_datos',{locals: {busqueda : utils.validaSanitizer(request.body.buscar)}})
-})
-
-router.post('/ejercicio',(request,reponse) =>{
-    
-})
+router.get('/test',main.test)
+router.post('/postData',main.postData)
+router.get('/index',main.index)
+router.post('/enviarDatos',main.enviarDatos)
+router.get('/ejercicio',main.ejercicio)
+router.get('/ejercicio',main.ejercicio)
+router.post('/recibeDataEjercicio',main.recibeDataEjercicio)
 
 module.exports = router
