@@ -3,12 +3,8 @@ const pool = require('../database/configpg')
 
 const agregarPersonaMy =  (request,response) =>{
     myConnection.query(
-        `insert into persona(nombre,apellido,direccion) values (?,?,?) returning id,nombre,apellido,direccion`,
-        [
-            request.body.nombre,
-            request.body.apellido,
-            request.body.direccion
-        ],
+        `insert into persona(nombre,apellido,direccion) 
+        values ("${request.body.nombre}","${request.body.apellido}","${request.body.direccion}") `,
         function(err, results) {
           console.log(results);
           console.log(err);
