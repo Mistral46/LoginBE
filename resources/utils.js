@@ -20,13 +20,13 @@ const validaOpenai = async (expresion)=>{
 }
 
 const validaInput = (expresion) =>{
-    const validadores = ["<script>"]
+    const validadores = ["<script>","#"]
     for(var i = 0 ; i< validadores.length;++i){
        if(expresion.includes(validadores[i])){
             return "true"
         }
     }
-    return "false"
+    return expresion
 
 }
 const validaSanitizer = (expresion) => {
