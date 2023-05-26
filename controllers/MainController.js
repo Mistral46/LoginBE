@@ -30,6 +30,20 @@ const recibeDataEjercicio = (request,response) =>{
     response.render('recibe',{locals: {datos:request.body}})
 
 }
+const preguntaOpenai = async (request,response) =>{
+    const { Configuration, OpenAIApi } = require("openai");
+    const configuration = new Configuration({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    const openai = new OpenAIApi(configuration);
+    pregunta = `${request.body.pregunta}`
+    console.log(pregunta);
+    const completion = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: pregunta
+      });
+       response.json(completion.data.choices[0])
+    }
 module.exports = {
     test,
     postData,
@@ -37,4 +51,5 @@ module.exports = {
     enviarDatos,
     ejercicio,
     recibeDataEjercicio,
+    preguntaOpenai
 }

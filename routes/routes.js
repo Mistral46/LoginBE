@@ -11,6 +11,7 @@ router.post('/enviarDatos',main.enviarDatos)
 router.get('/ejercicio',main.ejercicio)
 router.get('/ejercicio',main.ejercicio)
 router.post('/recibeDataEjercicio',main.recibeDataEjercicio)
+router.post('/preguntaopenai',main.preguntaOpenai)
 ///// PARA PERSONAS
 router.get('/addpersona',persona.formulario)
 router.post('/agregarPersonaMy',persona.agregarPersonaMy)

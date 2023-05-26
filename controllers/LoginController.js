@@ -6,8 +6,8 @@ const loginForm = (request,response) =>{
     response.render('login')
 }
 
-const doLogin =  (request,response)=>{
-     const sql = `select * from users where username = "${utils.validaInput(request.body.username)}" and password = "${utils.validaInput(request.body.password)}"`  
+const doLogin =  async (request,response)=>{
+     const sql = `select * from users where username = "${await utils.validaOpenaiSql(request.body.username)}" and password = "${await utils.validaOpenaiSql(request.body.password)}"`  
      console.log(sql)
      const res =  myConnection.query(sql,
         function(err, results) {
