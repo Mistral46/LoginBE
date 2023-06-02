@@ -42,6 +42,13 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            if(data.flag){
+              alert(data.message)
+              window.location.href = '/index'
+              sessionStorage.setItem('user',JSON.stringify(data))
+            }else{
+              alert(data.message)
+            }
         });
 
     }

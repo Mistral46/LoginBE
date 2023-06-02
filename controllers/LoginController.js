@@ -14,13 +14,12 @@ const doLogin =  async (request,response)=>{
             console.log(results)
             console.log(err)
             if(results[0]){
-                response.json({message:"Login Exitoso"})
+                response.json({message:"Login Exitoso", flag:true})
             }else{
-                response.json({message:"Usuario no conocido"})
+                response.json({message:"Usuario no conocido",flag:false})
             }
         }
       );
-
 }
 const doLoginpg = async (request,response) => {
 

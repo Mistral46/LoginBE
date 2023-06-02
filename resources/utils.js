@@ -1,4 +1,5 @@
 var sanitizer = require('sanitizer');
+const validadores = ["<script>","#"]
 
 const validaOpenai = async (tipo,expresion) =>{
     const { Configuration, OpenAIApi } = require("openai");
@@ -6,9 +7,11 @@ const validaOpenai = async (tipo,expresion) =>{
       apiKey: process.env.OPENAI_API_KEY,
     });
     const openai = new OpenAIApi(configuration);
-    pregunta = `contiene lenguaje 
-     ${tipo} en la siguiente expresion?
-    "${expresion}". Responde true o false en minusculas`
+    pregunta = `la expresion "${expresion}" contiene lenguaje 
+     ${tipo} o alguno de los caracteres del 
+     siguiente array ${JSON.stringify(validadores)}
+      ?
+    . Responde true o false en minusculas`
     console.log(pregunta);
     const completion = await openai.createCompletion({
         model: "text-davinci-003",
@@ -31,7 +34,6 @@ const validaOpenaiJS =  async (expresion)=>{
    
 }
 const validaInput = (expresion) =>{
-    const validadores = ["<script>","#"]
     for(var i = 0 ; i< validadores.length;++i){
        if(expresion.includes(validadores[i])){
             return "true"
