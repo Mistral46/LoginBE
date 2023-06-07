@@ -8,21 +8,19 @@ const validaOpenai = async (tipo,expresion) =>{
     });
     const openai = new OpenAIApi(configuration);
     pregunta = `la expresion "${expresion}" contiene lenguaje 
-     ${tipo} o alguno de los caracteres del 
-     siguiente array ${JSON.stringify(validadores)}
-      ?
+     ${tipo} ?
     . Responde true o false en minusculas`
-    console.log(pregunta);
+    
     const completion = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: pregunta
       });
       respuesta = completion.data.choices[0].text.trim();
-      console.log("Respuesta : "+respuesta)
+
       if(respuesta == "false"){
-        return expresion
+        return false
       }else{
-        return "     "
+        return true
       }
     
 }
