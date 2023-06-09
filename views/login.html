@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <h1 class="text-center">Login</h1>
-        <div>
+        <form action = "dologin" method="POST">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
@@ -19,39 +19,12 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-primary" onclick = "enviar()" value="Login">
+            <input type="submit" class="btn btn-primary" value="Login">
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
-  <script>    
-    const enviar = () =>{
-      data = {
-        username : document.getElementById('username').value,
-        password : document.getElementById('password').value,
-      }
-      config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        method: 'POST'
-      }
-      fetch("/doLogin",config)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if(data.flag){
-              alert(data.message)
-              window.location.href = '/index'
-              sessionStorage.setItem('user',JSON.stringify(data))
-            }else{
-              alert(data.message)
-            }
-        });
-
-    }
-  </script>
+  
 </body>
 </html>
