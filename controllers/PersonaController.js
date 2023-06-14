@@ -60,13 +60,7 @@ const formulario = (request,response) =>{
     response.render('persona/addpersona')
 }
 const allUsers = async (request,response) =>{
-    if (request.body.token !== process.env.TOKEN){
-        error = {
-            message:"Usuario no autenticado"
-        }
-        response.render('persona/error',{locals:error})
-    }
-
+    console.log(request.body)
     myConnection.query(
         `select id, username from users `,
         function(err, results) {
