@@ -71,17 +71,59 @@ const allUsers = async (request,response) =>{
                 message:"Consulta exitosa",
                 users : results
             }
+            console.log(data)
             response.render('app/users',{locals:data})
            } 
         }
       );
 
 }
+const addUser =  (request,response) =>{
+    myConnection.query(
+        `insert into users(username,password) 
+        values (?,?) `,
+        [
+            request.body._username,
+            request.body._password,
+        ],
+        function(err, results) {
+           if(err){
+            response.render('persona/error',{locals:err})
+           }else{
+            respuesta = {
+                message:"Usuario agregado"
+            }
+            response.json(respuesta)
+           } 
+        }
+      );
 
+}
+const deleteUser =  (request,response) =>{
+     myConnection.query(
+        `delete from users where id = ? `,
+        [
+            request.body._id,
+        ],
+        function(err, results) {
+           if(err){
+            response.render('persona/error',{locals:err})
+           }else{
+            respuesta = {
+                message:"Usuario eliminado"
+            }
+            response.json(respuesta)
+           } 
+        }
+      );
+
+}
 
 module.exports = {
     agregarPersonaMy,
     agregarPersonaPg,
     formulario,
-    allUsers
+    allUsers,
+    addUser,
+    deleteUser
 }

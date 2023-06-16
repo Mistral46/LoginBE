@@ -28,9 +28,59 @@
         url = '../persona/allusers'
         fetch(url,myInit)
         .then(response => response.text())
-        .then(data => console.log(data));
+        .then(data => {
+          const app = document.getElementById('app').innerHTML = data;
+        });
     }
-    
+    const addUser = () => {
+        
+        const datos = {
+            _username : document.getElementById('username').value,
+            _password : document.getElementById('password').value,
+            token : sessionStorage.getItem('token')
+        } 
+        const session = JSON.parse(sessionStorage.getItem("userData"))
+        const toSend = Object.assign(session, datos);
+        console.log(toSend)
+        myInit = {
+            body : JSON.stringify(toSend) ,
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        url = '../persona/adduser'
+        fetch(url,myInit)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          allUsers()
+        });
+    }
+    const deleteUser = (id) => {
+        
+        const datos = {
+            _id:id,
+            token : sessionStorage.getItem('token')
+        } 
+        const session = JSON.parse(sessionStorage.getItem("userData"))
+        const toSend = Object.assign(session, datos);
+        console.log(toSend)
+        myInit = {
+            body : JSON.stringify(toSend) ,
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        url = '../persona/deleteuser'
+        fetch(url,myInit)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          allUsers()
+        });
+    }
   </script>
 </head>
 <body>
@@ -53,7 +103,6 @@
               </li>
             </ul>
             <span class="navbar-text" id = "username_show">
-             
             </span>
           </div>
         </div>
@@ -67,7 +116,7 @@
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" onclick="allUsers()">Users</a>
+              <a class="nav-link" href = "#" onclick="allUsers()">Users</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Posts</a>
@@ -76,7 +125,7 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div class="content">
+        <div class="content" id = "app">
           <h1>Dashboard</h1>
           <p>This is the dashboard page. You can use it to manage your website or application.</p>
         </div>
