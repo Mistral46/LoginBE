@@ -2,14 +2,7 @@ const myConnection = require('../database/config')
 const pool = require('../database/configpg')
 
 const agregarPersonaMy =  (request,response) =>{
-    if (request.body.token !== process.env.TOKEN){
-        error = {
-            message:"Usuario no autenticado"
-        }
-        response.render('persona/error',{locals:error})
-    }
-
-    myConnection.query(
+      myConnection.query(
         `insert into persona(nombre,apellido,direccion) 
         values (?,?,?) `,
         [
