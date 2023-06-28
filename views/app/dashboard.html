@@ -17,12 +17,13 @@
         const username_show = document.getElementById('username_show').innerHTML = username.username
     }
     const allUsers = () => {
-      console.log('entrando!')
+        const token = sessionStorage.getItem('token')
         myInit = {
             body : JSON.stringify(sessionStorage),
             method:'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization':'Bearer '+token
             }
         }
         url = '../persona/allusers'
@@ -33,11 +34,10 @@
         });
     }
     const addUser = () => {
-        
+        const token = sessionStorage.getItem('token')
         const datos = {
             _username : document.getElementById('username').value,
             _password : document.getElementById('password').value,
-            token : sessionStorage.getItem('token')
         } 
         const session = JSON.parse(sessionStorage.getItem("userData"))
         const toSend = Object.assign(session, datos);
@@ -46,7 +46,9 @@
             body : JSON.stringify(toSend) ,
             method:'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+                
             }
         }
         url = '../persona/adduser'
@@ -57,11 +59,15 @@
           allUsers()
         });
     }
+    const editUser = (id) => {
+        username = document.getElementById('user_username_'+id).innerText
+        console.log(username)
+    }
     const deleteUser = (id) => {
-        
+        const token = sessionStorage.getItem('token')
         const datos = {
             _id:id,
-            token : sessionStorage.getItem('token')
+            
         } 
         const session = JSON.parse(sessionStorage.getItem("userData"))
         const toSend = Object.assign(session, datos);
@@ -70,7 +76,8 @@
             body : JSON.stringify(toSend) ,
             method:'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
             }
         }
         url = '../persona/deleteuser'
@@ -79,6 +86,75 @@
         .then(data => {
           console.log(data)
           allUsers()
+        });
+    }
+    const addPost = () => {
+        const token = sessionStorage.getItem('token')
+        const datos = {
+            titulo : document.getElementById('titulo').value,
+            contenido : document.getElementById('contenido').value,
+            id_user : JSON.parse(sessionStorage.getItem('userData')).id
+        } 
+        const session = JSON.parse(sessionStorage.getItem("userData"))
+        const toSend = Object.assign(session, datos);
+        console.log(toSend)
+        myInit = {
+            body : JSON.stringify(toSend) ,
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
+        }
+        url = '../post/addpost'
+        fetch(url,myInit)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          allPosts()
+        });
+    }
+    const deletePost = (id) => {
+        const token = sessionStorage.getItem('token')
+        const datos = {
+            _id:id
+        } 
+        const session = JSON.parse(sessionStorage.getItem("userData"))
+        const toSend = Object.assign(session, datos);
+        console.log(toSend)
+        myInit = {
+            body : JSON.stringify(toSend) ,
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+
+            }
+        }
+        url = '../post/deletepost'
+        fetch(url,myInit)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          allPosts()
+        });
+    }
+    const allPosts = async (id) => {
+        const token = sessionStorage.getItem('token')
+        myInit = {
+            body : JSON.stringify(sessionStorage),
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+
+            }
+        }
+        url = '../post/allposts'
+        await fetch(url,myInit)
+        .then(response => response.text())
+        .then(data => {
+          const app = document.getElementById('app').innerHTML = data;
         });
     }
   </script>
@@ -119,7 +195,7 @@
               <a class="nav-link" href = "#" onclick="allUsers()">Users</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Posts</a>
+              <a class="nav-link" href = "#" onclick="allPosts()">Posts</a>
             </li>
           </ul>
         </div>

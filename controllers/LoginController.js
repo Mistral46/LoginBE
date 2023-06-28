@@ -1,13 +1,14 @@
 const myConnection = require('../database/config')
 const pool = require('../database/configpg')
 const utils = require('../resources/utils')
+const jwt = require('jsonwebtoken')
 
 const loginForm = (request,response) =>{
     response.render('login')
 }
 
 const doLogin =  async (request,response)=>{
-     const sql = `select * from users where username = ? and password = ?`  
+     const sql = `select id,username from users where username = ? and password = ?`  
      console.log(sql)
      const res =  myConnection.query(sql,
         [
@@ -19,10 +20,16 @@ const doLogin =  async (request,response)=>{
             console.log(err)
             if(results[0]){
                 // response.json({message:"Login Exitoso", flag:true})
+                user = results[0]
+                Object.assign(user, {exp: Math.floor(Date.now() / 1000) + (60*15)})
+                token = jwt.sign(
+                    user,
+                    process.env.ACCESS_TOKEN_SECRET,
+                    )
                 respuesta = {
                     message:"Login Exitoso",
                     userData : JSON.stringify(results[0]),
-                    token : process.env.TOKEN
+                    token
                 }
                 response.render('app/dashboard',{locals:respuesta})
             }else{

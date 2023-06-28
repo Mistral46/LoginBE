@@ -10,7 +10,7 @@
   <div class="container">
     <h1>Bootstrap Error View</h1>
     <div class="alert alert-danger">
-      <strong>Error!</strong> ${respuesta.message}
+      <strong>Error!</strong> ${respuesta.message} ->${JSON.stringify(respuesta.err)} 
       <a href="login" type="button" class="btn btn-primary" data-bs-dismiss="alert">Try Again</a>
     </div>
   </div>
