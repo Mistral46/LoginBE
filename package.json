@@ -1,24 +1,24 @@
 {
-  "name": "dss",
+  "name": "DBtest",
   "version": "1.0.0",
-  "description": "Clases de Desarrollo de Software Seguro 2023",
+  "description": "Front End y Desarrollo",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/antonioSalinas/dss_2023.git"
+    "url": ""
   },
   "keywords": [
     "app"
   ],
-  "author": "Antonio Salinas",
+  "author": "Los 6",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/antonioSalinas/dss_2023/issues"
+    "url": ""
   },
-  "homepage": "https://gitlab.com/antonioSalinas/dss_2023#readme",
+  "homepage": "",
   "dependencies": {
     "co": "^4.6.0",
     "cors": "^2.8.5",
@@ -26,7 +26,7 @@
     "express": "^4.18.2",
     "express-es6-template-engine": "^2.2.3",
     "jsonwebtoken": "^9.0.0",
-    "mysql2": "^3.3.1",
+    "mysql2": "^3.6.2",
     "nodemon": "^2.0.22",
     "openai": "^3.2.1",
     "pg": "^8.10.0",
